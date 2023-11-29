@@ -43,8 +43,10 @@ int led01, led02, led03;
 String placaMae = "PLACA_MAE_118";
 
 //Enter your SSID and PASSWORD
-const char* ssid = "VIVOFIBRA-E5C0";
-const char* password = "6CBC8179FE";
+//const char* ssid = "VIVOFIBRA-E5C0";
+// const char* password = "6CBC8179FE";
+const char* ssid = "TP-Link_AE10";
+const char* password = "77827012";
 
 //DEFINIÇÃO DE IP FIXO PARA O NODEMCU ESP8266-12E
 //IPAddress ip(192,168,15,8); //COLOQUE UMA FAIXA DE IP DISPONÍVEL DO SEU ROTEADOR. EX: 192.168.1.110 **** ISSO VARIA, NO MEU CASO É: 192.168.0.175
