@@ -31,11 +31,12 @@ String todas = "TODAS_118";
 
 void setup()
 {
+  //Define os pinos como Saída
   pinMode(LED1,OUTPUT);
   pinMode(LED2,OUTPUT);
   pinMode(LED3,OUTPUT);
   driver.init(); //INICIALIZA A COMUNICAÇÃO RF DO DRIVER RF
-  Serial.begin(9600);
+  Serial.begin(9600); //Seta o serial monitor
 }
 
 void loop(){
@@ -80,7 +81,7 @@ void executacomando(String infcampos[]){
 //infcampos[2]: (0 A 99)          => Indica o número do pino
 //infcampos[3]: (0 OU 1)          => Indica o valor do pino 0:LOW, 1:HIGH
 //infcampos[4]: (LED)             => Indica o nome de alguma variável para controle ou Tipo de variável
-//infcampos[5]: (37.11)           => Indica o valor da variáel acima
+//infcampos[5]: (37.11)           => Indica o valor da variável acima
 
   if (infcampos[0] == placaMae)//se a placa mãe que enviou os dados é a placa mãe cadastrada nesta placa filha então executa, senão não faz nada.
   {
@@ -95,9 +96,11 @@ void executacomando(String infcampos[]){
           if (infcampos[3] == "0") {
             digitalWrite(LED1,LOW);
             digitalWrite(LED2,LOW);
+            digitalWrite(LED3,LOW);            
           }else{
             digitalWrite(LED1,HIGH);
             digitalWrite(LED2,HIGH);
+            digitalWrite(LED3,HIGH);
           }
         }else{
           if (infcampos[3] == "0") {
@@ -107,6 +110,7 @@ void executacomando(String infcampos[]){
           }
         }
       }
+
     }    
   }
 }

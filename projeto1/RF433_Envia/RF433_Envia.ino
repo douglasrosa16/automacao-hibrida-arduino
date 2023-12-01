@@ -31,39 +31,42 @@ int tempo = 5000;
 void enviaRF(char *msg)
 {  
   driver.send((uint8_t *)msg, strlen(msg)); //ENVIA AS INFORMAÇÕES PARA O RECEPTOR (PALAVRA: led)
+  driver.waitPacketSent(); //AGUARDA O ENVIO DAS INFORMAÇÕES    
+  delay(500);
+  
+  driver.send((uint8_t *)msg, strlen(msg)); //ENVIA AS INFORMAÇÕES PARA O RECEPTOR (PALAVRA: led)
   driver.waitPacketSent(); //AGUARDA O ENVIO DAS INFORMAÇÕES  
 }
 
 void setup()
 {
+  //Define os botões como Entrada
   pinMode(bt1, INPUT);
   pinMode(bt2, INPUT);
   pinMode(bt3, INPUT);
   driver.init(); //INICIALIZA A COMUNICAÇÃO RF DO DRIVER
-  Serial.begin(115200);
+  Serial.begin(115200); //Serial monitor ESP8266
 }
 
 void loop()
 {
+  //Caso o PINO esteja pressionado
   if (digitalRead(bt1) == HIGH) {
     delay(200);
     
+    //Se estiver pressionado fica aguardando
     while (digitalRead(bt1) == HIGH) {
       delay(50);
     }
     
-    bt1s = !bt1s;// inverte o sinal
+    bt1s = !bt1s;// inverte o sinal (Ligado / Desligado)
     
     if (bt1s == HIGH) {
-       enviaRF("|PLACA_MAE_118|FILHA_118_01|2|1|LED|37.11|");// Placa mãe, transmite o comando para a placa Filha 01 ligar o Led 1
-	   delay(500);
-       enviaRF("|PLACA_MAE_118|FILHA_118_01|2|1|LED|37.11|");// Placa mãe, transmite o comando para a placa Filha 01 ligar o Led 1
+      enviaRF("|PLACA_MAE_118|FILHA_118_01|2|1|LED|37.11|");// Placa mãe, transmite o comando para a placa Filha 01 ligar o Led 1    
     } else {
-       enviaRF("|PLACA_MAE_118|FILHA_118_01|2|0|LED|37.11|");// Placa mãe, transmite o comando para a placa Filha 01 desligar o Led 1
-	   delay(500);
-       enviaRF("|PLACA_MAE_118|FILHA_118_01|2|0|LED|37.11|");// Placa mãe, transmite o comando para a placa Filha 01 desligar o Led 1
+      enviaRF("|PLACA_MAE_118|FILHA_118_01|2|0|LED|37.11|");// Placa mãe, transmite o comando para a placa Filha 01 desligar o Led 1	    
     }
-    Serial.println(bt1s);
+    Serial.println(bt1s); //Imprime o status do Botão
   }
 
   if (digitalRead(bt2) == HIGH) {
@@ -76,13 +79,9 @@ void loop()
     bt2s = !bt2s;// inverte o sinal
     
     if (bt2s == HIGH) {
-       enviaRF("|PLACA_MAE_118|FILHA_118_01|3|1|LED|37.11|");// Placa mãe, transmite o comando para a placa Filha 01 ligar o Led 2
-	   delay(500);
-       enviaRF("|PLACA_MAE_118|FILHA_118_01|3|1|LED|37.11|");// Placa mãe, transmite o comando para a placa Filha 01 ligar o Led 2
+       enviaRF("|PLACA_MAE_118|FILHA_118_01|3|1|LED|37.11|");// Placa mãe, transmite o comando para a placa Filha 01 ligar o Led 2	   
     } else {
-       enviaRF("|PLACA_MAE_118|FILHA_118_01|3|0|LED|37.11|");// Placa mãe, transmite o comando para a placa Filha 01 desligar o Led 2
-       delay(500);
-	   enviaRF("|PLACA_MAE_118|FILHA_118_01|3|0|LED|37.11|");// Placa mãe, transmite o comando para a placa Filha 01 desligar o Led 2
+       enviaRF("|PLACA_MAE_118|FILHA_118_01|3|0|LED|37.11|");// Placa mãe, transmite o comando para a placa Filha 01 desligar o Led 2       
     }
     Serial.println(bt2s);
   }
@@ -97,13 +96,9 @@ void loop()
     bt3s = !bt3s;// inverte o sinal
     
     if (bt3s == HIGH) {
-       enviaRF("|PLACA_MAE_118|FILHA_118_01|4|1|LED|37.11|");// Placa mãe, transmite o comando para a placa Filha 01 ligar o Led 3
-	   delay(500);
-       enviaRF("|PLACA_MAE_118|FILHA_118_01|4|1|LED|37.11|");// Placa mãe, transmite o comando para a placa Filha 01 ligar o Led 3
+       enviaRF("|PLACA_MAE_118|FILHA_118_01|4|1|LED|37.11|");// Placa mãe, transmite o comando para a placa Filha 01 ligar o Led 3	   
     } else {
-       enviaRF("|PLACA_MAE_118|FILHA_118_01|4|0|LED|37.11|");// Placa mãe, transmite o comando para a placa Filha 01 desligar o Led 3
-       delay(500);
-	   enviaRF("|PLACA_MAE_118|FILHA_118_01|4|0|LED|37.11|");// Placa mãe, transmite o comando para a placa Filha 01 desligar o Led 3
+       enviaRF("|PLACA_MAE_118|FILHA_118_01|4|0|LED|37.11|");// Placa mãe, transmite o comando para a placa Filha 01 desligar o Led 3      
     }
     Serial.println(bt3s);
   }
